@@ -18,11 +18,11 @@ model = model.to(device)
 
 print('Model path {:s}. \nTesting...'.format(model_path))
 
-idx = 0
 for path in glob.glob(test_img_folder):
-    idx += 1
-    base = osp.splitext(osp.basename(path))[0]
-    print(idx, base)
+    split = osp.splitext(osp.basename(path))
+    base, ext = split[0], split[1]
+
+    print('{0}{1}'.format(base, ext))
     # read images
     img = cv2.imread(path, cv2.IMREAD_COLOR)
     img = img * 1.0 / 255
