@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 import torch
 import sys
-sys.path.insert(0, f'{os.path.dirname(__file__)}/app')
+sys.path.insert(0, '{0}/app'.format(os.path.dirname(__file__)))
 import RRDBNet_arch as arch
 
 # Settings
