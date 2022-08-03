@@ -1,6 +1,6 @@
 ## ESRGAN (Enhanced SRGAN) [:rocket: [BasicSR](https://github.com/xinntao/BasicSR)] [[Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN)]
 
-Cloned repository of xinntao/ESRGAN
+Cloned repository of [ESRGAN](https://github.com/xinntao/ESRGAN)
 
 Here are some examples for Real-ESRGAN:
 
@@ -20,6 +20,7 @@ Here are some examples for Real-ESRGAN:
 #### Dependencies
 - Python 3
 - [PyTorch >= 1.0](https://pytorch.org/) (CUDA version >= 7.5 if installing with CUDA. [More details](https://pytorch.org/get-started/previous-versions/))
+  - ```pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu```
 - Python packages:  `pip install numpy opencv-python`
 
 ### Test models

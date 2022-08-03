@@ -1,5 +1,10 @@
 # folder
-.vscode
+env
+LR
+results
+
+!LR/.gitkeep
+!results/.gitkeep
 
 # file type
 *.svg
@@ -9,4 +14,3 @@
 *.caffemodel
 *.mat
 *.npy
-
