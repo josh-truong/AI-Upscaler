@@ -24,10 +24,10 @@ model = model.to(device)
 img_ext = ['.bmp','.dib','.jpeg','.jpg','.jpe','.jp2','.png','.pbm','.pgm','.ppm','.sr','.ras','.tiff','.tif']
 vid_ext = ['.mp4']
 
-def ResizeImage(img):
+def ResizeImage(img, max=100):
     # Resize image to have a dimension less than 100 pixels
     height, width = img.shape[0], img.shape[1]
-    scale_factor = 100 / (height if (height > width) else width)
+    scale_factor = max / (height if (height > width) else width)
     dim = (int(width*scale_factor), int(height*scale_factor))
     resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
     return resized
@@ -46,6 +46,7 @@ def ESRGAN(img, model):
 
 
 print('Model path {:s}.'.format(model_path))
+MAXSIZE = 300
 for path in glob.glob(test_img_folder):
     base, ext = osp.splitext(osp.basename(path))
     print('{0}{1}'.format(base, ext))
@@ -53,9 +54,8 @@ for path in glob.glob(test_img_folder):
     if (ext in img_ext):
         # read images
         img = cv2.imread(path, cv2.IMREAD_COLOR)
-        if (100 not in img.shape):
-            img = ResizeImage(img, base, ext)
-            cv2.imwrite('LR/{:s}{:s}'.format(base, ext), img)
+        img = img if (MAXSIZE in img.shape) else ResizeImage(img, MAXSIZE)
+        cv2.imwrite('LR/{:s}.png'.format(base), img)
         output = ESRGAN(img, model)
         cv2.imwrite('results/{:s}.png'.format(base), output)
     elif (ext in vid_ext):
@@ -72,7 +72,7 @@ for path in glob.glob(test_img_folder):
             ret, frame = cap.read()
             if not ret:
                 break
-            frame = frame if (100 in frame.shape) else ResizeImage(frame)
+            frame = frame if (MAXSIZE in frame.shape) else ResizeImage(frame, MAXSIZE)
             frame = ESRGAN(frame, model)
             
             if (writer == None):
